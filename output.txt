@@ -1,0 +1,1 @@
+Advanced .NET Framework Features, Advanced LINQ (LINQ to SQL, LINQ to XML), Design Patterns (e.g., Singleton, Factory), Dependency Injection (DI) and Inversion of Control (IoC), Performance Optimization Techniques, Advanced ASP.NET MVC, Web Services (SOAP, REST), Security in .NET, Advanced Database Access (ORMs), Application Logging and Error Handling
