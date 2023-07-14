@@ -1,6 +1,5 @@
 # Sandeep-HCLFinal
 
-
 This contains code for Creating the code Data.csv
 (in codeforinput.ipynb and push.py for pusing it in a csv file)
 
@@ -15,3 +14,6 @@ The TfidfVectorizer converts a collection of raw documents into a matrix of TF-I
 Cosine Similarity is used for comparision of the Normalised TF-IDF and Normalised key input value.
 
 The Web server is hosted using Flask Webserver and HTML along with CSS is used for the Webpage that is built into this.
+
+
+Note: ADD the CSS files in Folder named static and HTML in templetes folder.
