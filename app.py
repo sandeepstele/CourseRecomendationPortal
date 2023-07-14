@@ -5,6 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
 import numpy as np
 from flask import Flask, render_template, request
+import webbrowser
 
 app = Flask(__name__)
 
@@ -17,17 +18,14 @@ def compare():
     # Read input from the website form
     ID = request.form['id']
 
-    # Provide the file names, input ID, and output file name
+    # Provide the file names, input ID
     data_file = "data.csv"
     key_file = "key.csv"
-    output_file = "output.txt"
 
     # Call the compare_csv_files function
-    result, name = compare_csv_files(data_file, key_file, ID, output_file)
+    result, name, keywords = compare_csv_files(data_file, key_file, ID)
 
-    if result.startswith("Output written"):
-        with open(output_file, 'r') as file:
-            search_query = file.read()
+    if result == "Keywords found":
         # Load the CSV file
         data = pd.read_csv('Coursera.csv')
 
@@ -51,11 +49,8 @@ def compare():
 
         # Function to perform search
         def search_engine(query, top_k=5):
-            # Preprocess the query
-            query = [query]
-
             # Transform the query using the trained vectorizer
-            query_tfidf = vectorizer.transform(query)
+            query_tfidf = vectorizer.transform([query])
 
             # Normalize the query TF-IDF vector
             normalized_query = normalize(query_tfidf)
@@ -82,7 +77,7 @@ def compare():
             return search_results
 
         # Call the search_engine function
-        search_results = search_engine(search_query)
+        search_results = search_engine(keywords)
 
         # Render the template with the search results and name
         return render_template('results.html', search_results=search_results, name=name)
@@ -90,7 +85,7 @@ def compare():
     else:
         return result
 
-def compare_csv_files(data_file, key_file, ID, output_file):
+def compare_csv_files(data_file, key_file, ID):
     # Read data.csv file and find technology, experience, and name for the given ID
     with open(data_file, 'r') as file:
         data_reader = csv.reader(file)
@@ -102,7 +97,7 @@ def compare_csv_files(data_file, key_file, ID, output_file):
                 name = row[0]
                 break
         else:
-            return "ID not found in data.csv", ""
+            return "ID not found in data.csv", "", ""
 
     # Read key.csv file and find the keywords based on technology and experience
     with open(key_file, 'r') as file:
@@ -113,13 +108,14 @@ def compare_csv_files(data_file, key_file, ID, output_file):
                 keywords = row[2]
                 break
         else:
-            return "No keywords found for the given technology and experience", ""
+            return "No keywords found for the given technology and experience", "", ""
 
-    # Write the output to a text file
-    with open(output_file, 'w') as file:
-        file.write(keywords)
-
-    return "Output written to " + output_file, name
+    return "Keywords found", name, keywords
 
 if __name__ == '__main__':
-    app.run()
+    # Open the website in the default browser
+    webbrowser.open('http://localhost:5000')
+
+    # Run the Flask application
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
