@@ -16,4 +16,4 @@ Cosine Similarity is used for comparision of the Normalised TF-IDF and Normalise
 The Web server is hosted using Flask Webserver and HTML along with CSS is used for the Webpage that is built into this.
 
 
-Note: ADD the CSS files in Folder named static and HTML in templetes folder.
+Note: ADD the CSS files in Folder named static and HTML in templates folder.
