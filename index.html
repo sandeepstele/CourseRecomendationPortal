@@ -1,0 +1,14 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Course Recommendation System</h1>
+<form action="/compare" method="POST">
+    <label for="id">Enter the ID:</label>
+    <input type="text" name="id" id="id" required>
+    <br>
+    <input type="submit" value="Compare">
+</form>
+</body>
+</html>
